@@ -3,6 +3,8 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+/gradle.properties.local
+
 
 ### IntelliJ IDEA ###
 .idea/misc.xml
@@ -11,6 +13,7 @@ build/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/.name
 *.iws
 *.iml
 *.ipr
@@ -42,3 +45,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
