@@ -1,2 +1,2 @@
-# prtg-nextcloud
-PRTG sensor for nextcloud 
+# prtg-xml
+PRTG xml output helper
