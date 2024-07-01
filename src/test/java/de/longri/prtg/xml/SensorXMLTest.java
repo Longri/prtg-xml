@@ -126,8 +126,8 @@ class SensorXMLTest {
         HDD_Channel hddChanel = new HDD_Channel("Demo Disk Free");
 
         hddChanel.setValue(38.4487, 100);
-        hddChanel.setError("80","My custom note for errors");
-        hddChanel.setWarning("37","My custom note for warnings");
+        hddChanel.setError("80", "My custom note for errors");
+        hddChanel.setWarning("37", "My custom note for warnings");
 
         SENSOR.addChannel(hddChanel);
         SENSOR.setMessage("Message for Sensor");
@@ -135,5 +135,29 @@ class SensorXMLTest {
         String xml = SENSOR.getXML();
         assertEquals(expected, xml);
 
+    }
+
+    @Test
+    void getHddSensorErrorTest() {
+
+        String expected = "<prtg>\n" +
+                "\t<error>1</error>\n" +
+                "\t<text>Error message</text>\n" +
+                "</prtg>";
+
+        Sensor SENSOR = new Sensor();
+        HDD_Channel hddChanel = new HDD_Channel("Demo Disk Free");
+
+        hddChanel.setValue(38.4487, 100);
+        hddChanel.setError("80", "My custom note for errors");
+        hddChanel.setWarning("37", "My custom note for warnings");
+
+        SENSOR.addChannel(hddChanel);
+        SENSOR.setMessage("Message for Sensor");
+
+        SENSOR.setError("Error message");
+
+        String xml = SENSOR.getXML();
+        assertEquals(expected, xml);
     }
 }

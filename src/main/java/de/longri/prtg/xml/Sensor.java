@@ -31,6 +31,7 @@ import static de.longri.prtg.xml.XML.*;
 public class Sensor {
 
     private String message;
+    private String errorMsg;
 
     private final ArrayList<SensorChannel> channelList = new ArrayList<>();
 
@@ -39,6 +40,9 @@ public class Sensor {
     }
 
     public String getXML() {
+
+        if (errorMsg != null && !errorMsg.isEmpty()) return ERROR_XML_MSG.replace("##REPLACE##", errorMsg);
+
 
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
         StringWriter stringOut = new StringWriter();
@@ -78,5 +82,9 @@ public class Sensor {
 
     public void setMessage(String messageForSensor) {
         this.message = messageForSensor;
+    }
+
+    public void setError(String errorMessage) {
+        this.errorMsg = errorMessage;
     }
 }
