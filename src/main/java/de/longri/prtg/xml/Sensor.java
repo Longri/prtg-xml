@@ -18,54 +18,30 @@
  */
 package de.longri.prtg.xml;
 
-
-import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.*;
+import javax.xml.stream.events.StartDocument;
 import java.io.StringWriter;
 import java.util.ArrayList;
 
 import static de.longri.prtg.xml.Util.createNode;
-import static de.longri.prtg.xml.Util.writeChannel;
 import static de.longri.prtg.xml.XML.*;
 
-public class SensorXML {
+public class Sensor {
 
+    private String message;
 
+    private final ArrayList<SensorChannel> channelList = new ArrayList<>();
 
-
-    public SensorXML(WorkingChannel... channels) {
-        this.addAll(channels);
-    }
-
-    private ArrayList<WorkingChannel> channels = new ArrayList<>();
-    private String errorMsg;
-    private String message = null;
-
-    public void addAll(WorkingChannel... channels) {
-        for (WorkingChannel channel : channels)
-            this.channels.add(channel);
-    }
-
-    public void addChannel(WorkingChannel channel) {
-        channels.add(channel);
-    }
-
-    public void setError(String msg) {
-        this.errorMsg = msg;
-    }
-
-    public void setMessage(String msg) {
-        this.message = msg;
+    public void addChannel(SensorChannel channel) {
+        channelList.add(channel);
     }
 
     public String getXML() {
+
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
         StringWriter stringOut = new StringWriter();
-
-        if (errorMsg != null && !errorMsg.isEmpty()) return ERROR_XML_MSG.replace("##REPLACE##", errorMsg);
 
 
         try {
@@ -79,11 +55,13 @@ public class SensorXML {
             eventWriter.add(eventFactory.createStartElement("", "", "prtg"));
             eventWriter.add(end);
 
-            for (WorkingChannel channel : channels) {
-                writeChannel(channel, eventWriter);
+            for (SensorChannel channel : channelList) {
+                channel.write(1, eventWriter);
             }
+
             if (this.message != null)
                 createNode(1, eventWriter, "text", this.message);
+
             eventWriter.add(eventFactory.createEndElement("", "", "prtg"));
             eventWriter.add(eventFactory.createEndDocument());
             eventWriter.close();
@@ -95,11 +73,10 @@ public class SensorXML {
 
         String output = stringOut.toString();
         return output;
+
     }
 
-    public void runChannelWorker() {
-        for (WorkingChannel channel : channels) {
-            channel.run();
-        }
+    public void setMessage(String messageForSensor) {
+        this.message = messageForSensor;
     }
 }

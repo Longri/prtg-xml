@@ -16,22 +16,30 @@
  * You should have received a copy of the GNU General Public License
  * along with prtg-xml. If not, see <https://www.gnu.org/licenses/>.
  */
-package de.longri.prtg.xml;
+package de.longri.prtg.xml.tags;
 
-// see https://www.paessler.com/de/manuals/prtg/custom_sensors
+public enum Unit implements iTAG {
+    BytesBandwidth,
+    BytesDisk,
+    Temperature,
+    Percent,
+    TimeResponse,
+    TimeSeconds,
+    Custom,
+    Count,
+    CPU,
+    BytesFile,
+    SpeedDisk,
+    SpeedNet,
+    TimeHours;
 
-public class Channel extends WorkingChannel {
-
-    public Channel(String name, ValueType type, StringBuilder msgBilder) {
-        super(name, type, msgBilder);
-    }
-
-    public Channel(String channel_name, StringBuilder msgBilder) {
-        super(channel_name, ValueType.INT, msgBilder);
+    @Override
+    public String getName() {
+        return "unit";
     }
 
     @Override
-    protected boolean runWork() {
-        return true;
+    public String getValue() {
+        return this.name();
     }
 }

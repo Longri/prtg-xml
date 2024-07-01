@@ -20,10 +20,6 @@ package de.longri.prtg.xml;
 
 public abstract class WorkingChannel extends Cancel_Task {
 
-    public enum ValueType {
-        INT, FLOAT
-    }
-
     protected final String name;
     protected final ValueType type;
     protected final StringBuilder msgBilder;

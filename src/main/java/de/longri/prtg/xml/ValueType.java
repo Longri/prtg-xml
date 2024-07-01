@@ -18,20 +18,6 @@
  */
 package de.longri.prtg.xml;
 
-// see https://www.paessler.com/de/manuals/prtg/custom_sensors
-
-public class Channel extends WorkingChannel {
-
-    public Channel(String name, ValueType type, StringBuilder msgBilder) {
-        super(name, type, msgBilder);
-    }
-
-    public Channel(String channel_name, StringBuilder msgBilder) {
-        super(channel_name, ValueType.INT, msgBilder);
-    }
-
-    @Override
-    protected boolean runWork() {
-        return true;
-    }
+public enum ValueType {
+    INT, FLOAT
 }

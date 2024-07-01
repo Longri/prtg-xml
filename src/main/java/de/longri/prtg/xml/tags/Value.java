@@ -16,22 +16,22 @@
  * You should have received a copy of the GNU General Public License
  * along with prtg-xml. If not, see <https://www.gnu.org/licenses/>.
  */
-package de.longri.prtg.xml;
+package de.longri.prtg.xml.tags;
 
-// see https://www.paessler.com/de/manuals/prtg/custom_sensors
+public class Value extends TAG {
 
-public class Channel extends WorkingChannel {
+    int value = 0;
 
-    public Channel(String name, ValueType type, StringBuilder msgBilder) {
-        super(name, type, msgBilder);
-    }
-
-    public Channel(String channel_name, StringBuilder msgBilder) {
-        super(channel_name, ValueType.INT, msgBilder);
+    public Value() {
+        super("value", "0");
     }
 
     @Override
-    protected boolean runWork() {
-        return true;
+    public String getValue() {
+        return String.valueOf(value);
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }
