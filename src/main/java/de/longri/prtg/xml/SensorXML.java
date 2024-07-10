@@ -93,7 +93,7 @@ public class SensorXML {
         }
 
 
-        String output = stringOut.toString();
+        String output = stringOut.toString().replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>","<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
         return output;
     }
 

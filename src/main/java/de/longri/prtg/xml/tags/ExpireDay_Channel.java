@@ -21,9 +21,6 @@ package de.longri.prtg.xml.tags;
 import de.longri.prtg.xml.SensorChannel;
 import de.longri.prtg.xml.ValueType;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 
 /*
 	<result>
@@ -43,16 +40,15 @@ import java.math.RoundingMode;
 	</result>
  */
 
-public class HDD_Channel extends SensorChannel {
-
-    public static int ROUND_COUNT = 2;
+public class ExpireDay_Channel extends SensorChannel {
 
     private double percentValue;
     private final Limit limit;
 
-    public HDD_Channel(String name) {
-        super(name, ValueType.FLOAT);
-        this.addTag(Unit.Percent);
+    public ExpireDay_Channel(String name) {
+        super(name, ValueType.INT);
+        this.addTag(Unit.Custom);
+        this.addTag("CustomUnit","Days");
         this.addTag(Mode.Absolute);
         this.addTag("showChart", "1");
         this.addTag("showTable", "1");
@@ -60,15 +56,14 @@ public class HDD_Channel extends SensorChannel {
 
         limit = new Limit();
         this.addTag(limit);
-        limit.setMaxError("90");
-        limit.setMaxWarning("75");
-        limit.setErrorMsg("Error");
-        limit.setWarningMsg("Warning");
+        limit.setMaxError("14");
+        limit.setMaxWarning("28");
+        limit.setErrorMsg("This will expire in less than 14 days");
+        limit.setWarningMsg("This will expire soon");
     }
 
-    public void setValue(double value, double maxValue) {
-        percentValue = value / maxValue * 100;
-        super.setValue(roundValue(percentValue));
+    public void setValue(int daysToExpire) {
+        super.setValue(daysToExpire);
     }
 
     public void setError(String value, String msg) {
@@ -79,11 +74,5 @@ public class HDD_Channel extends SensorChannel {
     public void setWarning(String value, String msg) {
         limit.setWarningMsg(msg);
         limit.setMaxWarning(value);
-    }
-
-    public double roundValue(double value) {
-        BigDecimal bd = new BigDecimal(Double.toString(value));
-        bd = bd.setScale(ROUND_COUNT, RoundingMode.HALF_UP);
-        return bd.doubleValue();
     }
 }

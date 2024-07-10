@@ -28,7 +28,7 @@ class SensorXMLTest {
     private static final boolean IS_WIN = System.getProperty("os.name").toLowerCase().matches(".*win.*");
     private static final String CRLF_LF = IS_WIN ? "\r\n" : "\n";
     private static final String expectedXml = "" +
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + CRLF_LF +
+            "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" + CRLF_LF +
             "<prtg>" + CRLF_LF +
             "\t<result>" + CRLF_LF +
             "\t\t<channel>IntValue</channel>" + CRLF_LF +
@@ -102,11 +102,11 @@ class SensorXMLTest {
     @Test
     void getHddSensorTest() {
 
-        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
                 "<prtg>\n" +
                 "\t<result>\n" +
                 "\t\t<channel>Demo Disk Free</channel>\n" +
-                "\t\t<value>38.4487</value>\n" +
+                "\t\t<value>38.45</value>\n" +
                 "\t\t<float>1</float>\n" +
                 "\t\t<unit>Percent</unit>\n" +
                 "\t\t<mode>Absolute</mode>\n" +
