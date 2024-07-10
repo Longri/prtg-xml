@@ -68,7 +68,12 @@ public class HDD_Channel extends SensorChannel {
 
     public void setValue(double value, double maxValue) {
         percentValue = value / maxValue * 100;
-        super.setValue(roundValue(percentValue));
+        setValue(percentValue);
+    }
+
+    @Override
+    public void setValue(double value) {
+        super.setValue(roundValue(value));
     }
 
     public void setError(String value, String msg) {
