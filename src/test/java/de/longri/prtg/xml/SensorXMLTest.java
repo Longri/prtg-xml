@@ -113,6 +113,7 @@ class SensorXMLTest {
                 "\t\t<showChart>1</showChart>\n" +
                 "\t\t<showTable>1</showTable>\n" +
                 "\t\t<warning>0</warning>\n" +
+                "\t\t<Text>375,48 KB/976,56 KB</Text>\n" +
                 "\t\t<LimitMode>1</LimitMode>\n" +
                 "\t\t<LimitMaxError>80</LimitMaxError>\n" +
                 "\t\t<LimitMaxWarning>37</LimitMaxWarning>\n" +
@@ -125,7 +126,7 @@ class SensorXMLTest {
         Sensor SENSOR = new Sensor();
         HDD_Channel hddChanel = new HDD_Channel("Demo Disk Free");
 
-        hddChanel.setValue(38.4487, 100);
+        hddChanel.setValue(384487, 1000000);
         hddChanel.setError("80", "My custom note for errors");
         hddChanel.setWarning("37", "My custom note for warnings");
 

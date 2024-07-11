@@ -19,6 +19,7 @@
 package de.longri.prtg.xml.tags;
 
 import de.longri.prtg.xml.SensorChannel;
+import de.longri.prtg.xml.Util;
 import de.longri.prtg.xml.ValueType;
 
 import java.math.BigDecimal;
@@ -49,6 +50,7 @@ public class HDD_Channel extends SensorChannel {
 
     private double percentValue;
     private final Limit limit;
+    private final TAG TEXT = new TAG("Text", "");
 
     public HDD_Channel(String name) {
         super(name, ValueType.FLOAT);
@@ -57,6 +59,7 @@ public class HDD_Channel extends SensorChannel {
         this.addTag("showChart", "1");
         this.addTag("showTable", "1");
         this.addTag("warning", "0");
+        this.addTag(TEXT);
 
         limit = new Limit();
         this.addTag(limit);
@@ -69,6 +72,7 @@ public class HDD_Channel extends SensorChannel {
     public void setValue(double value, double maxValue) {
         percentValue = value / maxValue * 100;
         setValue(percentValue);
+        setTEXT(Util.formatBytes(value), Util.formatBytes(maxValue));
     }
 
     @Override
@@ -86,7 +90,15 @@ public class HDD_Channel extends SensorChannel {
         limit.setMaxWarning(value);
     }
 
-    public double roundValue(double value) {
+    protected void setTEXT(String usage, String max) {
+        TEXT.setValue(usage + "/" + max);
+    }
+
+    protected void setTEXT(String text) {
+        TEXT.setValue(text);
+    }
+
+    public static double roundValue(double value) {
         BigDecimal bd = new BigDecimal(Double.toString(value));
         bd = bd.setScale(ROUND_COUNT, RoundingMode.HALF_UP);
         return bd.doubleValue();
